@@ -6,7 +6,6 @@ def index(request):
     file_json = open("static/pizza.json")
     data = json.loads(file_json.read())
     data = data["menu"]
-    kategori = []
     context = {
         'data': data
     }
@@ -16,8 +15,12 @@ def categori(request, kategori):
     file_json = open("static/pizza.json")
     data = json.loads(file_json.read())
     data = data["menu"]
+    hasil = []
     for i in data:
         if kategori == i['kategori']:
-            data = i
-    print(data)
-    return render(request,"index", data)
+            hasil.append(i)
+    context={
+        "data": hasil,
+        "aktif": kategori
+    }
+    return render(request,"home.html", context)
