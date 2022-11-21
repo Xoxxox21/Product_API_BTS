@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'Api',
     'rest_framework',
     'knox',
-    'web'
+    'web',
+    'movie'
 ]
 
 MIDDLEWARE = [
