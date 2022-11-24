@@ -10,17 +10,16 @@ def index(request):
 
 def search(request):
     if request.method == 'POST':
-        title = request.POST["title"]        
+        title = request.POST["title"]
         get_json = requests.get("http://www.omdbapi.com/?apikey=bc25b0ea&s="+title).json()
-        print(get_json["Response"])
-        if get_json["Response"] != True:
+        if get_json["Response"] == True:
             data = get_json["Search"]
             context={
                 "data": data,
             }
             return render(request,"movie.html", context)
-        else:
-            messages.info(request, "Judul yang anda cari tidak ada")
-            return render(request,"movie.html")
+        elif get_json["Response"] == False:
+            messages.info(request, "judul yang dicari tidak ada")
+            return redirect('/search')
     else:
         return render(request,"movie.html")
